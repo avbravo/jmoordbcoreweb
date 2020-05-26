@@ -59,18 +59,18 @@ jmoordbstack
             <artifactId>jmoordbutils</artifactId>
             <version>0.85</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>com.github.avbravo</groupId>
             <artifactId>jmoordbcore</artifactId>
             <version>0.1.1</version>
-        </dependency>
+        </dependency>-->
             
             
-        <!--               <dependency>
+                   <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jmoordbcore</artifactId>
-            <version>0.1.1</version>
-        </dependency>-->
+            <version>0.1.2</version>
+        </dependency>
     </dependencies>
     
     <build>

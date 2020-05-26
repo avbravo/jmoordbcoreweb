@@ -5,6 +5,7 @@
  */
 package com.avbravo.jmoordbcoreweb;
 
+import com.avbravo.jmoordbcore.annotations.core.CodecNativeClient;
 import com.avbravo.jmoordbcore.codecnative.CodecNative;
 import com.avbravo.jmoordbcore.codecnative.JmoordbCodecNative;
 import com.avbravo.jmoordbcore.codecnative.example.Calle;
@@ -16,7 +17,9 @@ import com.mongodb.client.MongoClients;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -27,21 +30,24 @@ import java.io.Serializable;
 public class CoreController implements Serializable {
 // <editor-fold defaultstate="collapsed" desc="environment">
 
-    MongoClient mongoClient = MongoClients.create(JmoordbCodecNative.settings());
+    @Inject
+    @CodecNativeClient
+    MongoClient mongoClientCodecNative;
+
     //Definir codecNative
-    final CodecNative codecNative = JmoordbCodecNative.createConnection(mongoClient, "jmoordb_nativecode");
+    //MongoClient mongoClient = MongoClients.create(JmoordbCodecNative.settings());
+//    final CodecNative codecNative = JmoordbCodecNative.createConnection(mongoClient, "jmoordb_nativecode");
+    CodecNative codecNative;
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="entity()">
-     private Person person = new Person();
-     private Address address = new Address();
-     private Calle calle = new Calle();
-   
+    private Person person = new Person();
+    private Address address = new Address();
+    private Calle calle = new Calle();
 
 // </editor-fold>
-   
     // <editor-fold defaultstate="collapsed" desc="get/set()">
-     public Person getPerson() {
+    public Person getPerson() {
         return person;
     }
 
@@ -64,26 +70,36 @@ public class CoreController implements Serializable {
     public void setCalle(Calle calle) {
         this.calle = calle;
     }
-    
-    
 
-   
 // </editor-fold>
-   
-
     /**
      * Creates a new instance of CoreController
      */
     public CoreController() {
     }
+
+    @PostConstruct
+    public void init() {
+        try {
+            if (mongoClientCodecNative == null) {
+                System.out.println("+++++++++++++Es null");
+            } else {
+                System.out.println("++++++++++++++No es Null");
+                codecNative = JmoordbCodecNative.createConnection(mongoClientCodecNative, "jmoordb_nativecode");
+            }
+        } catch (Exception e) {
+        }
+
+    }
 // <editor-fold defaultstate="collapsed" desc="save()">
+
     public String save() {
         try {
 
 //       Person person = new Person("Ada Byron", 20, new Address("St James Square", "London", "W1", new Calle("c", "Rosio")));
-address.setCalle(calle);
-person.setAddress(address);
-
+            address.setCalle(calle);
+            person.setAddress(address);
+            person.setId(ObjectId.get());
             codecNative.save(person);
             JsfUtil.infoDialog("save()", "Guardado");
 
