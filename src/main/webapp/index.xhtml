@@ -40,7 +40,7 @@
                     <p:inputText value="#{coreController.calle.id}"/>
                                      
                     <p:outputLabel value="calle"/>                 
-                    <p:inputText value="#{coreController.calle}"/>
+                    <p:inputText value="#{coreController.calle.calle}"/>
                                      
              
                   
@@ -50,7 +50,7 @@
 
 
             </p:fieldset>
-            <p:commandButton value="Save" action="#{coreController.run()}" update=":form"/>
+            <p:commandButton value="Save" action="#{coreController.save()}" update=":form"/>
 
         </h:form>
     </h:body>
