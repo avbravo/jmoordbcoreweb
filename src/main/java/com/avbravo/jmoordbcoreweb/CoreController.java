@@ -34,6 +34,8 @@ public class CoreController implements Serializable {
 
     // <editor-fold defaultstate="collapsed" desc="entity()">
      private Person person = new Person();
+     private Address address = new Address();
+     private Calle calle = new Calle();
    
 
 // </editor-fold>
@@ -46,6 +48,24 @@ public class CoreController implements Serializable {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Calle getCalle() {
+        return calle;
+    }
+
+    public void setCalle(Calle calle) {
+        this.calle = calle;
+    }
+    
+    
 
    
 // </editor-fold>
@@ -61,6 +81,9 @@ public class CoreController implements Serializable {
         try {
 
 //       Person person = new Person("Ada Byron", 20, new Address("St James Square", "London", "W1", new Calle("c", "Rosio")));
+address.setCalle(calle);
+person.setAddress(address);
+
             codecNative.save(person);
             JsfUtil.infoDialog("save()", "Guardado");
 
