@@ -62,7 +62,7 @@
             
               
             <p:fieldset legend="MongoDriver Microservices" style="margin-bottom:20px" toggleable="true" collapsed="true">
-                <p:panelGrid columns="2">
+                <p:panelGrid columns="3">
                     <p:commandButton value="searchbypathparam()"
                                      action="#{fruitController.searchbypathparam()}"
                                      update=":form:growl, :form"
@@ -76,8 +76,7 @@
                                      action="#{fruitController.filterbyqueryparamdate()}"
                                      update=":form:growl, :form"
                                      />   
-                </p:panelGrid>
-                 <p:panelGrid columns="1    ">
+              
                                     <p:dataTable value="#{fruitController.fruitList}"
                                                  var="item">
                                         <p:column headerText="name">
