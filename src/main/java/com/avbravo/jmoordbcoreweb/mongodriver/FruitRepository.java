@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
 import org.bson.Document;
@@ -20,9 +21,9 @@ import org.bson.Document;
  *
  * @author avbravo
  */
-@Named(value = "fruitServices")
-@ApplicationScoped
-public class FruitService implements Serializable{
+
+@Stateless
+public class FruitRepository implements Serializable{
   
     private com.mongodb.MongoClient mongoClient = null;
 
@@ -44,7 +45,7 @@ public class FruitService implements Serializable{
             JsfUtil.errorMessage("init() " + e.getLocalizedMessage());
         }
     }
-    public FruitService() {
+    public FruitRepository() {
  //mongoClient = MongoClients.create(JmoordbCodecNative.settings());
    // mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
     }
@@ -53,7 +54,6 @@ public class FruitService implements Serializable{
         List<Fruit> list = new ArrayList<>();
       
         MongoCursor<Document> cursor = getCollection().find().iterator();
-        System.out.println("voy al while");
         try {
             while (cursor.hasNext()) {
                
@@ -61,6 +61,7 @@ public class FruitService implements Serializable{
                
                 Fruit fruit = new Fruit();
                 fruit.setName(document.getString("name"));
+                fruit.setId(document.getString("id"));
                 fruit.setDescription(document.getString("description"));
                 fruit.setDate1(document.getDate("date1"));
                 list.add(fruit);
@@ -79,6 +80,8 @@ public class FruitService implements Serializable{
     public void add(Fruit fruit){
         Document document = new Document()
                 .append("name", fruit.getName())
+                .append("id", fruit.getId())
+                
                 .append("description", fruit.getDescription())
                 .append("date1", fruit.getDate1());
         getCollection().insertOne(document);

@@ -50,8 +50,55 @@
 
 
             </p:fieldset>
+          
+            
+            
+            
+            
+            
             <p:commandButton value="Save" action="#{coreController.save()}" update=":form"/>
 
+            
+            
+              
+            <p:fieldset legend="MongoDriver Microservices" style="margin-bottom:20px" toggleable="true" collapsed="true">
+                <p:panelGrid columns="2">
+                    <p:commandButton value="searchbypathparam()"
+                                     action="#{fruitController.searchbypathparam()}"
+                                     update=":form:growl, :form"
+                                     />
+                    
+                                    <p:commandButton value="filterbyqueryparam() "
+                                     action="#{fruitController.filterbyqueryparam()}"
+                                     update=":form:growl, :form"
+                                     />   
+                                    <p:commandButton value="filterbyqueryparamdate() "
+                                     action="#{fruitController.filterbyqueryparamdate()}"
+                                     update=":form:growl, :form"
+                                     />   
+                </p:panelGrid>
+                 <p:panelGrid columns="1    ">
+                                    <p:dataTable value="#{fruitController.fruitList}"
+                                                 var="item">
+                                        <p:column headerText="name">
+                                            <p:outputLabel value="#{item.name}"/>
+                                        </p:column>
+                                        <p:column headerText="description">
+                                            <p:outputLabel value="#{item.description}"/>
+                                        </p:column>
+                                        <p:column headerText="id">
+                                            <p:outputLabel value="#{item.id}"/>
+                                        </p:column>
+                                        <p:column headerText="date1">
+                                            <p:outputLabel value="#{item.date1}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                     
+                </p:panelGrid>
+
+
+
+            </p:fieldset>
         </h:form>
     </h:body>
 </html>
