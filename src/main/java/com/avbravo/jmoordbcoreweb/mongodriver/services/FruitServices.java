@@ -16,6 +16,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.ext.ParamConverterProvider;
 
 /**
  *
@@ -100,6 +101,34 @@ public class FruitServices implements Serializable {
         } catch (Exception e) {
 
             JsfUtil.errorDialog(" filterbyqueryparam()", e.getLocalizedMessage());
+        }
+
+        return suggestions;
+    }
+     // <editor-fold defaultstate="collapsed" desc="List<Fruits> findByUsername(String username)">
+    public List<Fruit> filterbyqueryparamdateParamConverterProvider(String name, String id, Date date1) {
+        List<Fruit> suggestions = new ArrayList<>();
+        try {
+            System.out.println("|**********************************************************");
+            System.out.println("|**********************************************************");
+            System.out.println("++++++++++++++++++++++++++FruisServices.filterbyqueryparamdateParamConverterProvider()");
+           System.out.println("|**********************************************************");
+            System.out.println("|******* dete1 es "+date1);
+            Client client = ClientBuilder.newClient();
+       
+            
+            suggestions = client
+                    .target("http://localhost:8080"+ "/jmoordbcoreweb/resources/fruit/dateparamdateparamconverterprovider/")
+                     .queryParam("name",name )
+                     .queryParam("id", id)
+                     .queryParam("date1", date1)
+                    
+                    .request(MediaType.APPLICATION_JSON)
+                    .get(new GenericType<List<Fruit>>() {});
+
+        } catch (Exception e) {
+            System.out.println("filterbyqueryparamdateParamConverterProvider() "+e.getLocalizedMessage());
+            JsfUtil.errorDialog(" filterbyqueryparamdateParamConverterProvider()", e.getLocalizedMessage());
         }
 
         return suggestions;

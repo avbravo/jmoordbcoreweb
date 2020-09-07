@@ -64,7 +64,7 @@ public class FruitResources {
         List<Fruit> fruitList = new ArrayList<>();
 
         try {
-            System.out.println("***************** MICROSERVICES  searchbypathparam(*****************************");
+            
             List<Fruit> list = new ArrayList<>();
 
             list = fruitRepository.list();
@@ -136,6 +136,37 @@ public class FruitResources {
 
         } catch (Exception e) {
             System.out.println("filterbyqueryparam() " + e.getLocalizedMessage());
+
+        }
+
+        return fruitList;
+    }
+
+//    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="@Path("/filterbyqueryparamdateParamConverterProvider") ">
+    /**
+     * Query params con fechas
+     *
+     * @param name
+     * @param id
+     * @param date1
+     * @return
+     */
+    @GET
+    @Path("/dateparamdateparamconverterprovider")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Fruit> dateparamdateparamconverterprovider(@QueryParam("name") String name, @QueryParam("id") String id, @QueryParam("date1") Date date1) {
+        List<Fruit> fruitList = new ArrayList<>();
+        try {
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22");
+            System.out.println("=@@@@@@@@@@@@@@@@@@@fruitResourvces.filterbyqueryparamdateParamConverterProvider=================");
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22");
+            System.out.println("@@@@@@@@@@@@Llego con la fecha directa "+date1);
+
+        fruitList = fruitRepository.findByDate(date1);
+
+        } catch (Exception e) {
+            System.out.println("filterbyqueryparamdateParamConverterProvider() " + e.getLocalizedMessage());
 
         }
 

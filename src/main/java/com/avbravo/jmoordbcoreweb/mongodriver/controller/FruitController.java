@@ -13,9 +13,11 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.ws.rs.ext.ParamConverterProvider;
 
 /**
  *
@@ -99,7 +101,7 @@ public class FruitController implements Serializable {
         List<Fruit> suggestions = new ArrayList<>();
 
         try {
-      
+
             String date1 = "";
             List<Fruit> searchList = fruitServices.searchbypathparam("manzana");
             if (searchList == null || searchList.isEmpty()) {
@@ -107,7 +109,7 @@ public class FruitController implements Serializable {
             } else {
                 Fruit f = searchList.get(0);
                 System.out.println("---- voy a llamar a isoDateToString()");
-                date1 = DateUtil.isoDateToString(f.getDate1()); 
+                date1 = DateUtil.isoDateToString(f.getDate1());
                 System.out.println("---------------------------> encontre apple con date =>" + f.getId() + " date" + f.getDate1() + " --->>--" + date1);
 
             }
@@ -133,5 +135,44 @@ public class FruitController implements Serializable {
         return "";
     }
 
+    public String filterbyqueryparamdateParamConverterProvider() {
+        List<Fruit> suggestions = new ArrayList<>();
+
+        try {
+            System.out.println("|----------------------------------------------------------");
+            System.out.println("|------------FruitController.filterbyqueryparamdateParamConverterProvider");
+            System.out.println("|----------------------------------------------------------");
+//            Date date1 = new Date();
+         Date date1 = new Date();
+         List<Fruit> searchList = fruitServices.searchbypathparam("manzana");
+            if (searchList == null || searchList.isEmpty()) {
+                System.out.println("|-------------------------> no hay naranja");
+            } else {
+                Fruit f = searchList.get(0);
+                             date1 = f.getDate1();
+//   date1 = DateUtil.isoDateToString(f.getDate1());
+                System.out.println("|---------------------------> encontre naranaja con date =>" +    date1 + " date" + f.getDate1() + " --->>--" + date1);
+
+            }
+            fruitList = new ArrayList<>();
+            System.out.println("|------------------------------- invocare el servives con date1 "+date1);
+            suggestions = fruitServices.filterbyqueryparamdateParamConverterProvider("manzama", "2", date1);
+            if (suggestions == null || suggestions.isEmpty()) {
+                System.out.println("|--------------------------------regreso vacia la lista");
+                JsfUtil.warningDialog("Fruits", "regreso vacia la lista");
+            } else {
+                fruitList = suggestions;
+                JsfUtil.infoDialog("Fruits", "|----------------------Encontrados");
+                for (Fruit f : suggestions) {
+                    System.out.println("|----------------- " + f.getName() + "" + f.getId() + " " + f.getDate1());
+                }
+            }
+        } catch (Exception e) {
+
+            JsfUtil.errorDialog("filterbyqueryparam() ", e.getLocalizedMessage());
+        }
+
+        return "";
+    }
 
 }
