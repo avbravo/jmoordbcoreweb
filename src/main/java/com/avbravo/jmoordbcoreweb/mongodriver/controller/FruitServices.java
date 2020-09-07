@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.avbravo.jmoordbcoreweb.mongodriver.services;
+package com.avbravo.jmoordbcoreweb.mongodriver.controller;
 
 import com.avbravo.jmoordbcoreweb.mongodriver.microiservices.Fruit;
+import com.avbravo.jmoordbcoreweb.mongodriver.microiservices.FruitParam;
 import com.avbravo.jmoordbutils.JsfUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
@@ -129,6 +131,27 @@ public class FruitServices implements Serializable {
         } catch (Exception e) {
             System.out.println("filterbyqueryparamdateParamConverterProvider() "+e.getLocalizedMessage());
             JsfUtil.errorDialog(" filterbyqueryparamdateParamConverterProvider()", e.getLocalizedMessage());
+        }
+
+        return suggestions;
+    }
+ public List<Fruit> findBeanParam(FruitParam fruitParam){
+        List<Fruit> suggestions = new ArrayList<>();
+        try {
+          
+            Client client = ClientBuilder.newClient();
+       
+            
+            suggestions = client
+                    .target("http://localhost:8080"+ "/jmoordbcoreweb/resources/fruit/findbeanparamr/")
+                     .queryParam("fruitparama",fruitParam )
+                                       
+                    .request(MediaType.APPLICATION_JSON)
+                    .get(new GenericType<List<Fruit>>() {});
+
+        } catch (Exception e) {
+            System.out.println("findBeanParam(() "+e.getLocalizedMessage());
+            JsfUtil.errorDialog("findBeanParam(()", e.getLocalizedMessage());
         }
 
         return suggestions;

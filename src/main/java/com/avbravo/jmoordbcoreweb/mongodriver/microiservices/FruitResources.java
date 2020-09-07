@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -175,4 +176,26 @@ public class FruitResources {
 
 //    // </editor-fold>
 
+    
+    
+    
+    
+   
+  @GET
+    @Path("/findbeanparam")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Fruit> findBeanParam(@BeanParam FruitParam fruitParam) {
+        List<Fruit> fruitList = new ArrayList<>();
+        try {
+            System.out.println(">>>>>>>>>>><< LLEGO A findBeanParam()");
+            System.out.println("--->> date "+fruitParam.getDate1());
+        fruitList = fruitRepository.findByDate(fruitParam.getDate1());
+
+        } catch (Exception e) {
+            System.out.println("findbeanparam() " + e.getLocalizedMessage());
+
+        }
+
+        return fruitList;
+    }
 }

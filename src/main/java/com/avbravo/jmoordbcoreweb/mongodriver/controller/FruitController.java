@@ -6,7 +6,7 @@
 package com.avbravo.jmoordbcoreweb.mongodriver.controller;
 
 import com.avbravo.jmoordbcoreweb.mongodriver.microiservices.Fruit;
-import com.avbravo.jmoordbcoreweb.mongodriver.services.FruitServices;
+import com.avbravo.jmoordbcoreweb.mongodriver.microiservices.FruitParam;
 import com.avbravo.jmoordbutils.DateUtil;
 import com.avbravo.jmoordbutils.JsfUtil;
 import javax.inject.Named;
@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.ws.rs.ext.ParamConverterProvider;
 
 /**
  *
@@ -157,6 +156,43 @@ public class FruitController implements Serializable {
             fruitList = new ArrayList<>();
             System.out.println("|------------------------------- invocare el servives con date1 "+date1);
             suggestions = fruitServices.filterbyqueryparamdateParamConverterProvider("manzama", "2", date1);
+            if (suggestions == null || suggestions.isEmpty()) {
+                System.out.println("|--------------------------------regreso vacia la lista");
+                JsfUtil.warningDialog("Fruits", "regreso vacia la lista");
+            } else {
+                fruitList = suggestions;
+                JsfUtil.infoDialog("Fruits", "|----------------------Encontrados");
+                for (Fruit f : suggestions) {
+                    System.out.println("|----------------- " + f.getName() + "" + f.getId() + " " + f.getDate1());
+                }
+            }
+        } catch (Exception e) {
+
+            JsfUtil.errorDialog("filterbyqueryparam() ", e.getLocalizedMessage());
+        }
+
+        return "";
+    }
+    public String findBeanParam() {
+        List<Fruit> suggestions = new ArrayList<>();
+
+        try {
+           FruitParam fruitParam = new FruitParam();
+         List<Fruit> searchList = fruitServices.searchbypathparam("manzana");
+            if (searchList == null || searchList.isEmpty()) {
+                System.out.println("|-------------------------> no hay naranja");
+            } else {
+                   Fruit f = searchList.get(0);
+               fruitParam.setDate1(f.getDate1());
+               fruitParam.setId(f.getId());
+               fruitParam.setName(f.getName());
+               fruitParam.setDescription(f.getDescription());
+             
+           
+            }
+            fruitList = new ArrayList<>();
+           
+            suggestions = fruitServices.findBeanParam(fruitParam);
             if (suggestions == null || suggestions.isEmpty()) {
                 System.out.println("|--------------------------------regreso vacia la lista");
                 JsfUtil.warningDialog("Fruits", "regreso vacia la lista");

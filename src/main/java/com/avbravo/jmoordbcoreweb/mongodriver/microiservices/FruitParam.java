@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.avbravo.jmoordbcoreweb.mongodriver.services;
+package com.avbravo.jmoordbcoreweb.mongodriver.microiservices;
 
 import java.util.Date;
 import javax.ws.rs.QueryParam;
@@ -13,13 +13,14 @@ import javax.ws.rs.QueryParam;
  * @author avbravo
  */
 public class FruitParam {
+
     @QueryParam("name")
-       private String name;
+    private String name;
     @QueryParam("description")
     private String description;
-     @QueryParam("id")
+    @QueryParam("id")
     private String id;
-      @QueryParam("date1")
+    @QueryParam("date1")
     private Date date1;
 
     public String getName() {
@@ -53,8 +54,5 @@ public class FruitParam {
     public void setDate1(Date date1) {
         this.date1 = date1;
     }
-    
-    
-    
-    
+
 }
