@@ -5,17 +5,15 @@
  */
 package com.avbravo.jmoordbcoreweb.mongodriver.controller;
 
-import com.avbravo.jmoordbcoreweb.mongodriver.Fruit;
+import com.avbravo.jmoordbcoreweb.mongodriver.microiservices.Fruit;
 import com.avbravo.jmoordbcoreweb.mongodriver.services.FruitServices;
+import com.avbravo.jmoordbutils.DateUtil;
 import com.avbravo.jmoordbutils.JsfUtil;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
@@ -103,13 +101,13 @@ public class FruitController implements Serializable {
         try {
       
             String date1 = "";
-            List<Fruit> searchList = fruitServices.searchbypathparam("apple");
+            List<Fruit> searchList = fruitServices.searchbypathparam("manzana");
             if (searchList == null || searchList.isEmpty()) {
                 System.out.println("------------------------> no hay apple");
             } else {
                 Fruit f = searchList.get(0);
                 System.out.println("---- voy a llamar a isoDateToString()");
-                date1 = isoDateToString(f.getDate1());
+                date1 = DateUtil.isoDateToString(f.getDate1()); 
                 System.out.println("---------------------------> encontre apple con date =>" + f.getId() + " date" + f.getDate1() + " --->>--" + date1);
 
             }
@@ -135,20 +133,5 @@ public class FruitController implements Serializable {
         return "";
     }
 
-    private String isoDateToString(Date date) {
-        try {
-            SimpleDateFormat sdf;
-//sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.Z");
-            sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-//sdf.setTimeZone(TimeZone.getTimeZone("CET"));
-            sdf.setTimeZone(TimeZone.getDefault());
-            String text = sdf.format(date);
-            return text;
-        } catch (Exception e) {
-            JsfUtil.errorDialog("isoDateToString() ", e.getLocalizedMessage());
-        }
-        return "";
-
-    }
 
 }

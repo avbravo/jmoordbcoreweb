@@ -5,7 +5,7 @@
  */
 package com.avbravo.jmoordbcoreweb.mongodriver.services;
 
-import com.avbravo.jmoordbcoreweb.mongodriver.Fruit;
+import com.avbravo.jmoordbcoreweb.mongodriver.microiservices.Fruit;
 import com.avbravo.jmoordbutils.JsfUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -84,9 +84,7 @@ public class FruitServices implements Serializable {
         List<Fruit> suggestions = new ArrayList<>();
         try {
 
-            System.out.println("|============ FruitServises.filterbyqueryparam==================");
-            System.out.println("|============ date1 "+date1);
-            System.out.println("|============= invocare Microservices desde FruitServises");
+          
             Client client = ClientBuilder.newClient();
        
             

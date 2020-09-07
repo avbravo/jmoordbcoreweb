@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.avbravo.jmoordbcoreweb.mongodriver;
+package com.avbravo.jmoordbcoreweb.mongodriver.microiservices;
 
 import com.avbravo.jmoordbutils.JsfUtil;
 import com.mongodb.client.MongoCollection;
@@ -83,8 +83,7 @@ public class FruitRepository implements Serializable{
       
         MongoCursor<Document> cursor = getCollection().find(new Document("date1",date)).iterator();
         try {
-            while (cursor.hasNext()) {
-               
+            while (cursor.hasNext()) {               
                 Document document = cursor.next();
                
                 Fruit fruit = new Fruit();

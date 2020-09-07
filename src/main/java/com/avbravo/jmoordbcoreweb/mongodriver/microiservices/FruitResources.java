@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.avbravo.jmoordbcoreweb.mongodriver;
+package com.avbravo.jmoordbcoreweb.mongodriver.microiservices;
 
+import com.avbravo.jmoordbutils.DateUtil;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
@@ -130,22 +131,9 @@ public class FruitResources {
         List<Fruit> fruitList = new ArrayList<>();
         try {
 
-            Date dateConverter = getDateFromString(date1);//dateString is query param.
-
-//            List<Fruit> list = new ArrayList<>();
+            Date dateConverter = DateUtil.stringToISODate(date1);//dateString is query param.
           fruitList = fruitRepository.findByDate(dateConverter);
-//            if (list == null || list.isEmpty()) {
-//                System.out.println("|--------------lista no tiene ningun elemeento");
-//            }
-//
-//            for (Fruit f : list) {
-//
-//                if (f.getDate1().equals(dateConverter)) {
-//                    fruitList.add(f);
-//
-//                }
-//
-//            }
+
         } catch (Exception e) {
             System.out.println("filterbyqueryparam() " + e.getLocalizedMessage());
 
@@ -154,19 +142,6 @@ public class FruitResources {
         return fruitList;
     }
 
-    // </editor-fold>
-    private Date getDateFromString(String dateString) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-        Date conveter = new Date();
-        try {
-            Date date = df.parse(dateString);
-
-            return date;
-        } catch (Exception e) {
-            System.out.println("getDateFromString() " + e.getLocalizedMessage());
-            //WebApplicationException ...("Date format should be yyyy-MM-dd'T'HH:mm:ssZ", Status.BAD_REQUEST);
-        }
-        return conveter;
-    }
+//    // </editor-fold>
 
 }
