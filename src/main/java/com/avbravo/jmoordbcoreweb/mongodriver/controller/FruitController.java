@@ -54,7 +54,6 @@ public class FruitController implements Serializable {
         List<Fruit> suggestions = new ArrayList<>();
         try {
             fruitList = new ArrayList<>();
-            System.out.println("==============searchbypathparam()=================");
             suggestions = fruitServices.searchbypathparam("apple");
             if (suggestions == null || suggestions.isEmpty()) {
                 System.out.println("No econtrpo ");
