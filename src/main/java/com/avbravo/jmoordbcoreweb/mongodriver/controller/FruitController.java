@@ -11,9 +11,11 @@ import com.avbravo.jmoordbutils.JsfUtil;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
@@ -24,7 +26,8 @@ import javax.inject.Inject;
 @Named(value = "fruitController")
 @SessionScoped
 public class FruitController implements Serializable {
-List<Fruit> fruitList = new ArrayList<>();
+
+    List<Fruit> fruitList = new ArrayList<>();
     @Inject
     FruitServices fruitServices;
 
@@ -36,9 +39,6 @@ List<Fruit> fruitList = new ArrayList<>();
         this.fruitList = fruitList;
     }
 
-    
-    
-    
     /**
      * Creates a new instance of FruitController
      */
@@ -49,22 +49,19 @@ List<Fruit> fruitList = new ArrayList<>();
     public void init() {
         fruitList = new ArrayList<>();
     }
-    
-    
-   
-    
+
     public String searchbypathparam() {
         List<Fruit> suggestions = new ArrayList<>();
         try {
-              fruitList = new ArrayList<>();
+            fruitList = new ArrayList<>();
             System.out.println("==============searchbypathparam()=================");
             suggestions = fruitServices.searchbypathparam("apple");
             if (suggestions == null || suggestions.isEmpty()) {
                 System.out.println("No econtrpo ");
-                JsfUtil.warningDialog("Fruits","no encontro");
+                JsfUtil.warningDialog("Fruits", "no encontro");
             } else {
-                 fruitList =suggestions;
-                JsfUtil.infoDialog("Fruits","Encontrados");
+                fruitList = suggestions;
+                JsfUtil.infoDialog("Fruits", "Encontrados");
                 for (Fruit f : suggestions) {
                     System.out.println("------------------ " + f.getName() + "" + f.getId() + " " + f.getDate1());
                 }
@@ -80,15 +77,15 @@ List<Fruit> fruitList = new ArrayList<>();
     public String filterbyqueryparam() {
         List<Fruit> suggestions = new ArrayList<>();
         try {
-              fruitList = new ArrayList<>();
+            fruitList = new ArrayList<>();
             System.out.println("==============filterbyqueryparam()=================");
             suggestions = fruitServices.filterbyqueryparam("orange", "2");
             if (suggestions == null || suggestions.isEmpty()) {
                 System.out.println("No econtrpo ");
-                JsfUtil.warningDialog("Fruits","no encontro");
+                JsfUtil.warningDialog("Fruits", "no encontro");
             } else {
-                fruitList =suggestions;
-                JsfUtil.infoDialog("Fruits","Encontrados");
+                fruitList = suggestions;
+                JsfUtil.infoDialog("Fruits", "Encontrados");
                 for (Fruit f : suggestions) {
                     System.out.println("----------------- " + f.getName() + "" + f.getId() + " " + f.getDate1());
                 }
@@ -100,18 +97,36 @@ List<Fruit> fruitList = new ArrayList<>();
 
         return "";
     }
+
     public String filterbyqueryparamdate() {
         List<Fruit> suggestions = new ArrayList<>();
+
         try {
-              fruitList = new ArrayList<>();
-            System.out.println("==============filterbyqueryparam()=================");
-            suggestions = fruitServices.filterbyqueryparamdate("orange", "2", new Date());
+            System.out.println("========================================================");
+            System.out.println("==============filterbyqueryparamdate()==================");
+            System.out.println("=========================================================");
+//             Date date1 = new Date();
+            String date1 = "";
+            List<Fruit> searchList = fruitServices.searchbypathparam("apple");
+            if (searchList == null || searchList.isEmpty()) {
+                System.out.println("------------------------> no hay apple");
+            } else {
+                Fruit f = searchList.get(0);
+                System.out.println("---- voy a llamar a isoDateToString()");
+                date1 = isoDateToString(f.getDate1());
+                System.out.println("---------------------------> encontre apple con date =>" + f.getId() + " date" + f.getDate1() + " --->>--" + date1);
+
+            }
+            fruitList = new ArrayList<>();
+
+//            suggestions = fruitServices.filterbyqueryparamdate("orange", "2", new Date().toString());
+            suggestions = fruitServices.filterbyqueryparamdate("orange", "2", date1);
             if (suggestions == null || suggestions.isEmpty()) {
                 System.out.println("No econtrpo ");
-                JsfUtil.warningDialog("Fruits","no encontro");
+                JsfUtil.warningDialog("Fruits", "no encontro");
             } else {
-                fruitList =suggestions;
-                JsfUtil.infoDialog("Fruits","Encontrados");
+                fruitList = suggestions;
+                JsfUtil.infoDialog("Fruits", "Encontrados");
                 for (Fruit f : suggestions) {
                     System.out.println("----------------- " + f.getName() + "" + f.getId() + " " + f.getDate1());
                 }
@@ -122,6 +137,22 @@ List<Fruit> fruitList = new ArrayList<>();
         }
 
         return "";
+    }
+
+    private String isoDateToString(Date date) {
+        try {
+            SimpleDateFormat sdf;
+//sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.Z");
+            sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+//sdf.setTimeZone(TimeZone.getTimeZone("CET"));
+            sdf.setTimeZone(TimeZone.getDefault());
+            String text = sdf.format(date);
+            return text;
+        } catch (Exception e) {
+            JsfUtil.errorDialog("isoDateToString() ", e.getLocalizedMessage());
+        }
+        return "";
+
     }
 
 }

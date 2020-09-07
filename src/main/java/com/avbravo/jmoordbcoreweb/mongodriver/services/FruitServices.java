@@ -80,11 +80,13 @@ public class FruitServices implements Serializable {
         return suggestions;
     }
      // <editor-fold defaultstate="collapsed" desc="List<Fruits> findByUsername(String username)">
-    public List<Fruit> filterbyqueryparamdate(String name, String id, Date date1) {
+    public List<Fruit> filterbyqueryparamdate(String name, String id, String date1) {
         List<Fruit> suggestions = new ArrayList<>();
         try {
 
-            System.out.println("============ Services.filterbyqueryparam==================");
+            System.out.println("|============ FruitServises.filterbyqueryparam==================");
+            System.out.println("|============ date1 "+date1);
+            System.out.println("|============= invocare Microservices desde FruitServises");
             Client client = ClientBuilder.newClient();
        
             
@@ -92,7 +94,7 @@ public class FruitServices implements Serializable {
                     .target("http://localhost:8080"+ "/jmoordbcoreweb/resources/fruit/filterbyqueryparamdate/")
                      .queryParam("name",name )
                      .queryParam("id", id)
-                     .queryParam("date", date1)
+                     .queryParam("date1", date1)
                     
                     .request(MediaType.APPLICATION_JSON)
                     .get(new GenericType<List<Fruit>>() {});
