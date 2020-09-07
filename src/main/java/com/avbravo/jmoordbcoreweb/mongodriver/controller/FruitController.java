@@ -102,10 +102,7 @@ public class FruitController implements Serializable {
         List<Fruit> suggestions = new ArrayList<>();
 
         try {
-            System.out.println("========================================================");
-            System.out.println("==============filterbyqueryparamdate()==================");
-            System.out.println("=========================================================");
-//             Date date1 = new Date();
+      
             String date1 = "";
             List<Fruit> searchList = fruitServices.searchbypathparam("apple");
             if (searchList == null || searchList.isEmpty()) {

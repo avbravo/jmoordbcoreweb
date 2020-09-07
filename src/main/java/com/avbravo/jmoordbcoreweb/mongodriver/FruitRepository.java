@@ -10,6 +10,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -54,6 +55,33 @@ public class FruitRepository implements Serializable{
         List<Fruit> list = new ArrayList<>();
       
         MongoCursor<Document> cursor = getCollection().find().iterator();
+        try {
+            while (cursor.hasNext()) {
+               
+                Document document = cursor.next();
+               
+                Fruit fruit = new Fruit();
+                fruit.setName(document.getString("name"));
+                fruit.setId(document.getString("id"));
+                fruit.setDescription(document.getString("description"));
+                fruit.setDate1(document.getDate("date1"));
+                list.add(fruit);
+               
+            }
+            
+        }catch(Exception ex){
+            System.out.println("list() "+ex.getLocalizedMessage());
+        } finally {
+            cursor.close();
+        }
+      
+        return list;
+    }
+    public List<Fruit> findByDate(Date date){
+      
+        List<Fruit> list = new ArrayList<>();
+      
+        MongoCursor<Document> cursor = getCollection().find(new Document("date1",date)).iterator();
         try {
             while (cursor.hasNext()) {
                

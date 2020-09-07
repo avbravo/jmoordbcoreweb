@@ -54,7 +54,8 @@ public class FruitResources {
         fruitRepository.add(fruit);
         return list();
     }
-  // <editor-fold defaultstate="collapsed" desc="@Path("/searchbypathparam/{name}")">
+    // <editor-fold defaultstate="collapsed" desc="@Path("/searchbypathparam/{name}")">
+
     @GET
     @Path("/searchbypathparam/{name}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -79,8 +80,8 @@ public class FruitResources {
 
         return fruitList;
     }
-  // </editor-fold>
-    
+    // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="  @Path("/filterbyqueryparam")">
     @GET
     @Path("/filterbyqueryparam")
@@ -128,59 +129,23 @@ public class FruitResources {
     public List<Fruit> filterbyqueryparamdate(@QueryParam("name") String name, @QueryParam("id") String id, @QueryParam("date1") String date1) {
         List<Fruit> fruitList = new ArrayList<>();
         try {
-            System.out.println("|------------------------------------------------------------------------------");
-            System.out.println("|----------------------------MICROSERVICES  filterbyqueryparamdate--------------------------------");
+
             Date dateConverter = getDateFromString(date1);//dateString is query param.
 
-            System.out.println("------------------------------------------------");
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-
-            String dateInString = date1;
-            Date dateConverterAyer = formatter.parse(dateInString);
-
-            System.out.println("$$$$$$$$============>>> otra fecha con otro converversor" + dateConverterAyer);
-            System.out.println("------------------------------------------------");
-
-            System.out.println("|------------------ Query param name " + name + " id " + id + "date1 " + date1 + "Date converter " + dateConverter.toString());
-            List<Fruit> list = new ArrayList<>();
-
-            list = fruitRepository.list();
-            if (list == null || list.isEmpty()) {
-                System.out.println("|--------------lista no tiene ningun elemeento");
-            }
-            System.out.println("|------------------filtrando datos por fecha convertida......");
-            for (Fruit f : list) {
-                System.out.println("---------------------------------------------");
-                System.out.println("----------comoarando { "+f.getId() + "}");
-                System.out.println("------------" + f.getDate1());
-                System.out.println("------------" + dateConverter);
-
-          
-//                if (f.getId().equals(id)) {
-  Integer n=f.getDate1().compareTo(dateConverter);
-        System.out.println("------compareTo={"+n+"}");
-        
-if(f.getDate1().after(dateConverter)){
-    System.out.println("--------> after......");
-}else{
-    if(f.getDate1().before(dateConverter)){
-        System.out.println("------> before");
-    }else{
-      
-        
-    }
-}
-                 if (f.getDate1().equals(dateConverter)) {
-//                if (f.getDate1().equals(dateConverterAyer)) {
-                    fruitList.add(f);
-                    System.out.println("------------ fechas iguales....");
-                } else {
-                    System.out.println("------------ fechas diferentes....");
-                }
-
-                System.out.println("......................}");
-            }
-            System.out.println("|------------------------------------------------------------------------------");
+//            List<Fruit> list = new ArrayList<>();
+          fruitList = fruitRepository.findByDate(dateConverter);
+//            if (list == null || list.isEmpty()) {
+//                System.out.println("|--------------lista no tiene ningun elemeento");
+//            }
+//
+//            for (Fruit f : list) {
+//
+//                if (f.getDate1().equals(dateConverter)) {
+//                    fruitList.add(f);
+//
+//                }
+//
+//            }
         } catch (Exception e) {
             System.out.println("filterbyqueryparam() " + e.getLocalizedMessage());
 
@@ -203,29 +168,5 @@ if(f.getDate1().after(dateConverter)){
         }
         return conveter;
     }
-//    private Date getIsoDateFromString(String dateString) {
-//      //  DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-//        
-//                 DateTimeFormatter inputFormat = 
-//                DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy");
-//
-//        // The parsed date
-//        final ZonedDateTime parsed = ZonedDateTime.parse(ts, inputFormat);
-//
-//        // The output format
-//        final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        String date = outputFormat.format(parsed);
-//        
-////        
-////        Date conveter = new Date();
-//        try {
-//            Date date = df.parse(dateString);
-//
-//            return date;
-//        } catch (Exception e) {
-//            System.out.println("getDateFromString() " + e.getLocalizedMessage());
-//            //WebApplicationException ...("Date format should be yyyy-MM-dd'T'HH:mm:ss", Status.BAD_REQUEST);
-//        }
-//        return conveter;
-//    }
+
 }
