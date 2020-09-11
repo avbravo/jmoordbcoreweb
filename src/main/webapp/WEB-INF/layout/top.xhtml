@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+
+    <header id="header" class="page-topbar">
+
+        <div class="navbar-fixed">
+            <nav class="navbar-color">
+                <div class="nav-wrapper">
+                    <ul class="left">
+
+                        <li><h1 class="logo-wrapper">
+                                <a href="index.xhtml" class="brand-logo darken-1"> 
+                                    <h:graphicImage  library="img" name="logo.png"  alt="materialize logo" />
+                                </a> 
+                                <span class="logo-text"><p:outputLabel value="#{msg['application.shorttitle']}"/></span>
+                            </h1>
+                        </li>
+
+                    </ul>
+
+                    <div class="header-search-wrapper hide-on-med-and-down">
+                        <i class="material-icons">search</i>
+                        <h:form id="formtopsearch">
+                            <p:inputText class="header-search-input z-depth-2" placeholder="#{app['top.search']}" />                         
+                        </h:form>
+                    </div>
+
+
+
+                    <ul class="right hide-on-med-and-down">
+
+                        <h:form id="formtop" >
+                            <h:graphicImage library="jmoordbjsf" name="#{jmoordbLanguages.icono}" />
+                            <p:menuButton value=""   class="dropdown-content" styleClass="pmenuButton">
+                                <p:menuitem value="#{app['languague.portugues']}" action="#{jmoordbLanguages.portugueseAction}"
+                                            update="grwoltemplate, bodytemplate"  >
+                                    <h:graphicImage library="jmoordbjsf" name="banderas/brasil.png" />
+                                    <span class="language-select">
+                                        <p:outputLabel value="#{app['languague.portugues']}"/>
+                                    </span>
+                                </p:menuitem>
+
+                                <p:menuitem value=""  action="#{jmoordbLanguages.englishAction}" update="grwoltemplate, bodytemplate"  >
+                                    <h:graphicImage library="jmoordbjsf" name="banderas/estadosunidos.png" />
+                                    <span class="language-select">
+                                        <p:outputLabel  value="#{app['languague.ingles']}" />
+                                    </span>
+                                </p:menuitem>
+
+                                <p:menuitem value=""  action="#{jmoordbLanguages.spanishSpainAction}" update="grwoltemplate, bodytemplate"  >
+                                    <h:graphicImage library="jmoordbjsf" name="banderas/espana.png" />
+                                    <span class="language-select">
+                                        <p:outputLabel   value="#{app['languague.spanishSpain']}" />
+                                    </span>
+
+                                </p:menuitem>
+                                <p:separator />
+                                <p:menuitem action="#{jmoordbLanguages.spanishAction}" update="grwoltemplate, bodytemplate">
+                                    <h:graphicImage library="jmoordbjsf" name="banderas/panama.png" />
+                                    <span class="language-select">
+                                        <p:outputLabel value="#{app['languague.spanish']}" />
+                                    </span>
+                                </p:menuitem>
+
+                                <p:menuitem action="#{jmoordbLanguages.francesAction}" update="grwoltemplate, bodytemplate">
+                                    <h:graphicImage library="jmoordbjsf" name="banderas/francia.png" />
+                                    <span class="language-select"><p:outputLabel
+                                            value="#{app['languague.frances']}" /></span>
+                                </p:menuitem>
+
+                                <p:menuitem action="#{jmoordbLanguages.alemaniaAction}" update="grwoltemplate, bodytemplate">
+                                    <h:graphicImage library="jmoordbjsf" name="banderas/alemania.png" />
+                                    <span class="language-select"><p:outputLabel  value="#{app['languague.alemania']}" /></span>
+                                </p:menuitem>
+
+                            </p:menuButton>
+                        </h:form>
+
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+    </header>
+
+
+</ui:composition>

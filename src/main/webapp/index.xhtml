@@ -1,36 +1,55 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:jmoordbjsf="http://jmoordbjsf.com/taglib">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-          <jmoordbjsf:materialized-css />
-        <h:form id="form">
-            <p:growl id="growl"/>
-            <div class="card-panel blue darken-2">
-                
-                         <div class="row">
-                             <div class="col s12">
-                                            <i class="material-icons">verified_user</i>
-                             </div>
-                             <div class="col s12">
-                                    <p:commandButton value="Codec Native" action="codecnative" />
-                             </div>
-                             <div class="col s12">
-                                   <p:commandButton value="MongoDB Driver" action="mongodbdriver" />
-                             </div>
-                         </div>
-              
-          
- 
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/layout/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jmoordbjsf="http://jmoordbjsf.com/taglib">
+    <ui:define name="titulo">Jmoordbcoreweb</ui:define>
+    <ui:define name="contenido">
+        <p:messages  closable="true" >
+            <p:autoUpdate />
+        </p:messages>
+        <p:growl  />
+       <section id="content">
+            <div class="container">
+                <div class="section">
+                    <h5 class="breadcrumbs-title"><p:outputLabel value="#{msg['application.title']}" styleClass="label-applicationtitle" /></h5>
+                    <p class="caption">
+                        <p:outputLabel value="#{msg['application.welcome']}" styleClass="label-welcome"/>
+                    </p>
+                    <div id="contact-page" class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <div >
+                                <p:chart type="line" model="#{chartView.lineModel1}"  />
+                                <br /><br />                            
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h:form id="form" prependId="false" >
+                                <a
+                                    class="btn-floating activator btn-move-up waves-effect waves-light darken-2 right">
+                                    <i class="mdi-editor-mode-edit"></i>
+                                </a>
+                                <div class="row">
+                                    <div class="col s12 m6">
+                                        <form class="contact-form">
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <p:inputText value="#{accessController.name}" placeholder="Name"/>
+                                                    <p:outputLabel value="Name"/>
+                                                </div>
+                                            </div>                                                                                  
+                                        </form>
+                                    </div>
+                                </div>
+                            </h:form>                         
+                        </div>
+                    </div>
+                </div>
             </div>
-           
-        
-        </h:form>
-    </h:body>
-</html>
+        </section>
 
+        <jmoordbjsf:materialized-js />
+    </ui:define>
+</ui:composition>

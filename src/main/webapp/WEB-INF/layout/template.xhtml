@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jmoordbjsf="http://jmoordbjsf.com/taglib">
+
+    <h:head>      
+        <title><ui:insert name="titulo">JmoordbCoreWeb</ui:insert></title>
+        <jmoordbjsf:materialized-css />
+        <f:facet name="first">
+            <f:view locale="#{jmoordbLanguajes.locale !=null?jmoordbLanguajes.locale:'es'}"></f:view>
+            <f:loadBundle basename="com.properties.messages" var="msg" />
+            <f:loadBundle basename="com.jmoordbutils.properties.application" var="app" />
+
+        </f:facet>
+             <h:outputStylesheet library="css" name="personalized.css" />      
+    </h:head>
+
+    <h:body id="bodytemplate" >
+        <f:view contentType="text/html"> 
+            -<jmoordbjsf:cssthemepinkdark4/>
+          <!--<jmoordbjsf:cssthemegreydarken1/>-->
+            <p:growl id="grwoltemplate"/>
+       
+                <div class="wrapper">
+                       <ui:include src="/WEB-INF/layout/top.xhtml" />
+                    <div id="main">
+                        <div class="wrapper">
+                            <h:form id="formtemplatemenu">
+                                <ui:include src="/WEB-INF/layout/menu.xhtml" />
+                            </h:form>
+
+                            <div id="conteudo">
+                                <ui:insert name="contenido" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="push"></div>
+                </div>
+
+                <footer class="footer">
+                    <ui:include src="/WEB-INF/layout/footer.xhtml" />
+                </footer>
+          
+            <jmoordbjsf:materialized-js />
+
+        </f:view>
+    </h:body>
+
+</html>

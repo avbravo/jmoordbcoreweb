@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:b="http://bootsfaces.net/ui">
+
+
+
+    <aside id="left-sidebar-nav">
+        <ul id="slide-out" class="side-nav fixed leftside-navigation">
+            <!--<li class="user-details pink darken-3">-->
+            <li class="user-details left-menu">
+                <!--<li class="user-details cyan darken-2">-->
+
+                <div class="row">
+                    <div class="col col s4 m4 l4">
+                        <h:graphicImage library="jmoordbjsf" name="iconos/hombre48.png" 
+                                        styleClass="circle responsive-img valign profile-image" alt="" />                       
+                    </div>
+                    <div class="col col s8 m8 l8">
+                        <p:menuButton  value="#{accessController.name}" class="dropdown-content" styleClass="pmenuButton">
+                            <p:menuitem value="" action="#{accessController.logout()}" update="grwoltemplate"  >
+                                <i class="material-icons">face</i>#{app['menubutton.profile']}
+                            </p:menuitem>
+                            <p:menuitem value="" action="#{accessController.logout()}" update="grwoltemplate"  >
+                                <i class="material-icons">settings</i>#{app['menubutton.settings']}
+                            </p:menuitem>
+                            <p:menuitem value="" action="#{accessController.logout()}" ajax="false"  >
+                                <i class="material-icons">live_help</i> #{app['menubutton.help']}
+                            </p:menuitem>
+                            <p:separator />
+                            <p:menuitem value="" action="#{accessController.logout()}" >
+                                <i class="material-icons">lock</i>#{app['menubutton.exit']}
+                            </p:menuitem>
+                        </p:menuButton>
+
+                        <!--<p class="user-roal">Administrator</p>-->
+                    </div>
+                </div>
+
+
+            </li>
+
+            <li class="bold"><a href="index.xhtml"
+                                class="waves-effect waves-cyan"> <i class="material-icons">dashboard</i>
+                    Dashboard</a></li>
+
+
+            <h:panelGroup  >
+
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="bold"><a
+                                class="collapsible-header waves-effect waves-cyan">
+                                <i class="material-icons">view_carousel</i> <p:outputLabel value="#{msg['menubar.nosql']}"/></a>
+                            <div class="collapsible-body">
+
+                               <p:commandLink  value="#{msg['menu.jmoordbcloudnative']}"   action="#{navigatorController.go('/pages/nosql/jmoordbcodecnative.xhtml')}">
+                                   <i class="material-icons">add</i>  
+                               </p:commandLink>  
+                                
+                                   <p:commandLink  value="#{msg['menu.mongodbdriver']}"   action="#{navigatorController.go('/pages/nosql/mongodbdriver.xhtml')}"   >  
+                                  <i class="material-icons">assignment</i>  
+                                </p:commandLink>
+                                
+                                  <p:commandLink  value="#{msg['menu.jmoordbcore']}"   action="#{navigatorController.go('/pages/nosql/jmoordbcorexhtml')}">
+                                   <i class="material-icons">event_note</i>  
+                               </p:commandLink>  
+                                  <p:commandLink  value="#{msg['menu.jmoordb']}"   action="#{navigatorController.go('/pages/nosql/jmoordb.xhtml')}">
+                                   <i class="material-icons">event_note</i>  
+                               </p:commandLink>  
+                                  <p:commandLink  value="#{msg['menu.jakartanossql']}"   action="#{navigatorController.go('/pages/nosql/jakartanosql.xhtml')}">
+                                   <i class="material-icons">event_note</i>  
+                               </p:commandLink>  
+                               
+                            </div></li>
+                    </ul>
+                </li>
+            </h:panelGroup>
+         
+
+
+        </ul>
+        <a href="#" data-activates="slide-out"
+           class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i
+                class="mdi-navigation-menu"></i></a>
+    </aside>
+
+
+
+</ui:composition>
