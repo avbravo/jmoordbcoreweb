@@ -1,0 +1,2 @@
+
+java -jar   /home/avbravo/software/payara/payara-micro-5.2020.4.jar --deploy /home/avbravo/NetBeansProjects/jmoordb/jmoordbcoreweb/target/jmoordbcoreweb.war --outputUberJar /home/avbravo/Descargas/jmoordbcoreweb.jar 
